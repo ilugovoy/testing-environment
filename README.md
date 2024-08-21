@@ -18,7 +18,7 @@
     ├── inventory.ini
     └── playbooks
         ├── deploy
-		│   ├── .env
+        │   ├── .env
         │   ├── Dockerfile
         │   ├── deploy_ubuntu.yaml
         │   └── vars.yaml
