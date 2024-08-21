@@ -12,10 +12,16 @@
         name: my_custom_ubuntu_image
         source: build
         build:
-          path: /home/aeon/purpleschool/ansible-demo/playbooks/deploy-ubuntu
+          # yamllint disable-line rule:line-length
+          path: /home/aeon/purpleschool/testing-environment/ubuntu-cluster/playbooks/deploy
           args:
             USERNAME: "{{ username }}"
             PASSWORD: "{{ password }}"
+        state: present
+
+    - name: Создание пользовательской сети Docker
+      community.docker.docker_network:
+        name: custom_network
         state: present
 
     - name: Запуск Ubuntu инстансов
@@ -26,6 +32,8 @@
         published_ports:
           - "{{ ports[item] }}:22"
         env_file: .env
+        networks:
+          - name: custom_network
       loop:
         - ubuntu1
         - ubuntu2

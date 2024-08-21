@@ -16,6 +16,7 @@
   - [Разворачивание тестовой среды](#разворачивание-тестовой-среды)
   - [Остановка инстансов](#остановка-инстансов)
   - [Удаление инстансов](#удаление-инстансов)
+  - [Обновление ключей](#обновление-ключей)
 - [Автоматическая проверка качества кода](#автоматическая-проверка-качества-кода)
 - [Участие](#участие)
 - [Лицензия](#лицензия)
@@ -136,7 +137,7 @@ PASSWORD=
 ### Разворачивание тестовой среды
 
 ```sh
-ansible-playbook -i ubuntu-cluster/inventory.in ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
+ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
 ```
 
 ### Остановка инстансов
@@ -150,6 +151,30 @@ ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/stop/s
 ```sh
 ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/remove/remove_ubuntu.yaml
 ```
+
+### Обновление ключей
+
+Если после развёртывания подключиться по ssh `ssh <username>@127.0.0.1 -p 2222` не получается и выходит ошибка типа
+
+```text
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ED25519 key sent by the remote host is
+Please contact your system administrator.
+Add correct host key in $HOME/.ssh/known_hosts to get rid of this message.
+Offending ED25519 key in $HOME/.ssh/known_hosts:17
+  remove with:
+  ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[127.0.0.1]:2222"
+Host key for [127.0.0.1]:2222 has changed and you have requested strict checking.
+Host key verification failed.
+```
+
+То нужно запустить скрипт командой `./ubuntu-cluster/scripts/update_ssh_keys.sh`,
+а потом можно снова подключаться по ssh.
 
 
 

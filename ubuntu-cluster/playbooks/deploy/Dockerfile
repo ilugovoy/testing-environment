@@ -6,7 +6,7 @@ RUN mkdir -p /run/sshd
 
 # Обновляем пакеты и устанавливаем sudo и openssh-server
 RUN apt-get update && \
-    apt-get install -y sudo openssh-server && \
+    apt-get install -y sudo openssh-server iputils-ping traceroute ipcalc nmap iotop htop curl && \
     rm -rf /var/lib/apt/lists/*
 
 # Создаем пользователя с заданным именем и паролем, используя аргументы сборки
