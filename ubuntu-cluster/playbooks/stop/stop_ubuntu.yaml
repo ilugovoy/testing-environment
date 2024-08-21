@@ -1,0 +1,15 @@
+# ansible-playbook -i testing-environment/ubuntu-cluster/inventory.ini testing-environment/ubuntu-cluster/playbooks/stop/stop_ubuntu.yaml
+---
+- name: Остановка Ubuntu инстансов
+  hosts: local
+  tasks:
+    - name: Остановить контейнеры
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: stopped
+      loop:
+        - ubuntu1
+        - ubuntu2
+        - ubuntu3
+        - ubuntu4
+        - ubuntu5

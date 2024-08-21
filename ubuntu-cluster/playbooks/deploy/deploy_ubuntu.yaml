@@ -1,0 +1,52 @@
+# ansible-playbook -i testing-environment/ubuntu-cluster/inventory.ini testing-environment/ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
+---
+- name: Развертывание нескольких Ubuntu инстансов
+  hosts: localhost
+  vars_files:
+    - vars.yaml
+
+  tasks:
+    - name: Сборка Docker образа
+      community.docker.docker_image:
+        name: my_custom_ubuntu_image
+        source: build
+        build:
+          path: /home/aeon/purpleschool/ansible-demo/playbooks/deploy-ubuntu
+          args:
+            USERNAME: "{{ username }}"
+            PASSWORD: "{{ password }}"
+        state: present
+
+    - name: Запуск Ubuntu инстансов
+      community.docker.docker_container:
+        name: "{{ item }}"
+        image: my_custom_ubuntu_image
+        state: started
+        published_ports:
+          - "{{ ports[item] }}:22"
+        env_file: .env
+      loop:
+        - ubuntu1
+        - ubuntu2
+        - ubuntu3
+        - ubuntu4
+        - ubuntu5
+      vars:
+        ports:
+          ubuntu1: "2222"
+          ubuntu2: "2223"
+          ubuntu3: "2224"
+          ubuntu4: "2225"
+          ubuntu5: "2226"
+
+    # - name: Копирование .env файла
+    #   copy:
+    #     src: .env
+    #     dest: "/path/to/env/directory/.env"
+    #     mode: '0644'
+      
+    # - name: Выполнение дополнительных конфигураций (если нужно)
+    #   # здесь можно добавить дополнительные задачи, например установка пакетов и прочее
+    #   debug:
+    #     msg: "Добавьте сюда ваши дополнительные задачи для конфигурации"
+
