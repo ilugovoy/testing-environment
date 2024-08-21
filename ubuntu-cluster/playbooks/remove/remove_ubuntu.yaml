@@ -1,4 +1,4 @@
-# ansible-playbook -i testing-environment/ubuntu-cluster/inventory.ini testing-environment/ubuntu-cluster/playbooks/remove/remove_ubuntu.yaml
+# ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/remove/remove_ubuntu.yaml
 ---
 - name: Удаление Ubuntu инстансов
   hosts: local

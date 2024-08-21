@@ -14,18 +14,18 @@
 ├── .pre-commit-config.yaml
 ├── LICENSE
 ├── README.md
-└── testing-environment
-    └── ubuntu-cluster
-        ├── inventory.ini
-        └── playbooks
-            ├── deploy
-            │   ├── Dockerfile
-            │   ├── deploy_ubuntu.yaml
-            │   └── vars.yaml
-            ├── remove
-            │   └── remove_ubuntu.yaml
-            └── stop
-                └── stop_ubuntu.yaml
+└── ubuntu-cluster
+    ├── inventory.ini
+    └── playbooks
+        ├── deploy
+		│   ├── .env
+        │   ├── Dockerfile
+        │   ├── deploy_ubuntu.yaml
+        │   └── vars.yaml
+        ├── remove
+        │   └── remove_ubuntu.yaml
+        └── stop
+            └── stop_ubuntu.yaml
 ```
 
 
@@ -34,12 +34,12 @@
 ### Клонирование репозитория
 
 ```sh
-git clone https://github.com/ilugovoy/ansible-demo.git && cd ansible-demo
+git clone git@github.com:ilugovoy/testing-environment.git && cd testing-environment
 ```
 
 ### Настройка переменных
 
-Перед запуском playbook убедитесь, что файл `testing-environment/ubuntu-cluster/playbooks/deploy/vars.yml` содержит актуальные данные для подключения к вашей удаленной машине.
+Перед запуском playbook убедитесь, что файл `ubuntu-cluster/playbooks/deploy/vars.yml` содержит актуальные данные для подключения к вашей удаленной машине.
 
 ### Установка модуля для докер
 
@@ -53,19 +53,19 @@ ansible-galaxy collection install community.docker
 ### Разворачивание тестовой среды
 
 ```sh
-ansible-playbook -i testing-environment/ubuntu-cluster/inventory.in testing-environment/ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
+ansible-playbook -i ubuntu-cluster/inventory.in ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
 ```
 
-### Остановка сервисов
+### Остановка инстансов
 
 ```sh
-ansible-playbook -i testing-environment/ubuntu-cluster/inventory.ini testing-environment/ubuntu-cluster/playbooks/stop/stop_ubuntu.yaml
+ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/stop/stop_ubuntu.yaml
 ```
 
-### Удаление остановленных сервисов
+### Удаление инстансов
 
 ```sh
-ansible-playbook -i testing-environment/ubuntu-cluster/inventory.ini testing-environment/ubuntu-cluster/playbooks/remove/remove_ubuntu.yaml
+ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/remove/remove_ubuntu.yaml
 ```
 
 

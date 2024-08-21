@@ -1,4 +1,4 @@
-# ansible-playbook -i testing-environment/ubuntu-cluster/inventory.ini testing-environment/ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
+# ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
 ---
 - name: Развертывание нескольких Ubuntu инстансов
   hosts: localhost
