@@ -1,3 +1,4 @@
+# yamllint disable-line rule:line-length
 # ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
 ---
 - name: Развертывание нескольких Ubuntu инстансов
@@ -7,7 +8,9 @@
 
   tasks:
     - name: Сборка Docker образа
+      # lint-disable-next-line syntax-check
       community.docker.docker_image:
+      # lint-enable-next-line syntax-check
         name: my_custom_ubuntu_image
         source: build
         build:
@@ -39,14 +42,7 @@
           ubuntu4: "2225"
           ubuntu5: "2226"
 
-    # - name: Копирование .env файла
-    #   copy:
-    #     src: .env
-    #     dest: "/path/to/env/directory/.env"
-    #     mode: '0644'
-      
-    # - name: Выполнение дополнительных конфигураций (если нужно)
-    #   # здесь можно добавить дополнительные задачи, например установка пакетов и прочее
-    #   debug:
-    #     msg: "Добавьте сюда ваши дополнительные задачи для конфигурации"
-
+# здесь можно добавить дополнительные задачи
+# - name: Выполнение дополнительных конфигураций
+#   debug:
+#     msg: "Добавьте сюда задачи для конфигурации"

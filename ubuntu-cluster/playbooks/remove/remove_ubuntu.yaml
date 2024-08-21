@@ -1,3 +1,4 @@
+# yamllint disable-line rule:line-length
 # ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/remove/remove_ubuntu.yaml
 ---
 - name: Удаление Ubuntu инстансов
@@ -5,7 +6,9 @@
   tasks:
 
     - name: Удалить контейнеры
+      # lint-disable-next-line syntax-check
       community.docker.docker_container:
+      # lint-enable-next-line syntax-check
         name: "{{ item }}"
         state: absent
       loop:

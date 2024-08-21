@@ -1,10 +1,13 @@
+# yamllint disable-line rule:line-length
 # ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/stop/stop_ubuntu.yaml
 ---
 - name: Остановка Ubuntu инстансов
   hosts: local
   tasks:
     - name: Остановить контейнеры
+      # lint-disable-next-line syntax-check
       community.docker.docker_container:
+      # lint-enable-next-line syntax-check
         name: "{{ item }}"
         state: stopped
       loop:
