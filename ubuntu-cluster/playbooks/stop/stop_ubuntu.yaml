@@ -5,9 +5,7 @@
   hosts: local
   tasks:
     - name: Остановить контейнеры
-      # lint-disable-next-line syntax-check
       community.docker.docker_container:
-      # lint-enable-next-line syntax-check
         name: "{{ item }}"
         state: stopped
       loop:
