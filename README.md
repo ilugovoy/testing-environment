@@ -91,6 +91,11 @@ git clone git@github.com:ilugovoy/testing-environment.git && cd testing-environm
 
 Перед запуском playbook убедитесь, что файл `ubuntu-cluster/playbooks/deploy/vars.yml` содержит актуальные данные для подключения к вашей удаленной машине. В этом файле вы можете указать адрес хоста, пользователя и другие необходимые параметры.
 
+В файле `ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml` нужно поменять строку **path** на ваш путь (результат pwd)
+```bash
+path: < your_path_to_file >/testing-environment/ubuntu-cluster/playbooks/deploy
+```
+
 <details>
   <summary>Шаблон файла с переменными окружения</summary>
 
