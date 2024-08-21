@@ -1,0 +1,102 @@
+# .ansible-lint
+
+---
+# Профиль для анализа кода:
+# - null
+# - минимальный(min)
+# - базовый( basic)
+# - умеренный(moderate)
+# - безопасный(safety)
+# - общий(shared)
+# - продакшн(production)
+profile: production
+
+# Позволяет выводить результаты в формате SARIF
+# sarif_file: result.sarif
+
+# Исключаемые пути, относительно данного файла
+# exclude_paths:
+#   - .cache/  # неявно, если exclude_paths не определен в конфигурации
+#   - test/fixtures/formatting-before/
+#   - test/fixtures/formatting-prettier/
+
+# Мокированные модули или роли
+# для успешной проверки синтаксиса `ansible-playbook`
+# mock_modules:
+#   - zuul_return
+#   - fake_namespace.fake_collection.fake_module
+#   - fake_namespace.fake_collection.fake_module.fake_submodule
+# mock_roles:
+#   - mocked_role
+#   - author.role_name
+#   - fake_namespace.fake_collection.fake_role
+
+# Проверка префиксов переменных в циклах в ролях
+# loop_var_prefix: "^(__|{role}_)"
+
+# Шаблон для имен переменных
+# var_naming_pattern: "^[a-z_][a-z0-9_]*$"
+
+# Включить правила по умолчанию
+use_default_rules: true
+
+# Список правил, которые нужно включить
+enable_list:
+  - whitespace
+  # Проверяет правильность использования пробелов, табуляции и переносов строк
+  - variable-has-space
+  # Проверяет, содержат ли переменные пробелы в названиях
+  - envs-command-instead-of-shell
+  # Проверяет переменные окружения для задания команд
+  - package-installs
+  # Проверяет установки пакетов или плейбуков с помощью модулей
+  - args
+  # Проверка аргументов в модулях и ролях
+  - empty-string-compare
+  # Пустая строка сравнивается без явного кавычкового сравнения
+  - no-log-password
+  # Запрет на вывод паролей в логи
+  - no-same-owner
+  # Файл или директория не должны иметь одного владельца
+  - name[prefix]
+  # Проверка префиксов имен
+  - galaxy-version-incorrect
+  # Неверная версия ролей Galaxy
+  - unused-variables
+  # Проверка на неиспользуемые переменные
+  - secrets-detection
+  # Проверка обнаружения секретов
+  - task-tags
+  # Проверка использования тегов задач
+  - line-length
+  # Проверка длины строк кода
+  - deprecated-modules
+  # Проверка использования устаревших модулей
+
+# Список правил, которые выдают предупреждения, а не ошибки
+# warn_list:
+#   - skip_this_tag  # Предупреждения для данного тега игнорируются
+#   - experimental  # Правила в экспериментальном режиме
+
+# Режим оффлайн для избежания установки зависимостей из requirements.yml
+# offline: true
+
+# Дополнительные переменные Ansible, нужные для синтаксической проверки
+# extra_vars:
+#   foo: bar
+#   multiline_string_variable: |
+#     line1
+#     line2
+#   complex_variable: ":{;\t$()"
+
+# Предустановленный префикс для правила именования задач
+# task_name_prefix: "{stem} | "
+
+# Дополнительные правила для файлов yaml
+kinds:
+  # - playbook: "**/examples/*.{yml,yaml}"
+  # - galaxy: "**/folder/galaxy.yml"
+  # - tasks: "**/tasks/*.yml"
+  # - vars: "**/vars/*.yml"
+  # - meta: "**/meta/main.yml"
+  - yaml: "**/*.yaml"
