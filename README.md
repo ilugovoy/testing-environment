@@ -49,7 +49,7 @@
 ├── .pre-commit-config.yaml
 ├── LICENSE
 ├── README.md
-└── ubuntu-cluster
+└── ubuntu-service
     ├── inventory.ini
     └── playbooks
         ├── deploy
