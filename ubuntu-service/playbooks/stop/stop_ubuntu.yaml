@@ -1,5 +1,5 @@
 # yamllint disable-line rule:line-length
-# ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/stop/stop_ubuntu.yaml
+# ansible-playbook -i ubuntu-service/inventory.ini ubuntu-service/playbooks/stop/stop_ubuntu.yaml
 ---
 - name: Остановка Ubuntu инстансов
   hosts: local

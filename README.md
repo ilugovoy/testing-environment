@@ -10,14 +10,14 @@
   - [Клонирование репозитория](#клонирование-репозитория)
   - [Установка зависимостей](#установка-зависимостей)
   - [Настройка переменных](#настройка-переменных)
-  - [Использование pre-commit](#использование-pre-commit)
-  - [Использование ansible-lint](#использование-ansible-lint)
 - [Основные команды](#основные-команды)
   - [Разворачивание тестовой среды](#разворачивание-тестовой-среды)
   - [Остановка инстансов](#остановка-инстансов)
   - [Удаление инстансов](#удаление-инстансов)
   - [Обновление ключей](#обновление-ключей)
 - [Автоматическая проверка качества кода](#автоматическая-проверка-качества-кода)
+  - [Использование pre-commit](#использование-pre-commit)
+  - [Использование ansible-lint](#использование-ansible-lint)
 - [Участие](#участие)
 - [Лицензия](#лицензия)
 
@@ -89,17 +89,17 @@ git clone git@github.com:ilugovoy/testing-environment.git && cd testing-environm
 
 ### Настройка переменных
 
-Перед запуском playbook убедитесь, что файл `ubuntu-cluster/playbooks/deploy/vars.yml` содержит актуальные данные для подключения к вашей удаленной машине. В этом файле вы можете указать адрес хоста, пользователя и другие необходимые параметры.
+Перед запуском playbook убедитесь, что файл `ubuntu-service/playbooks/deploy/vars.yml` содержит актуальные данные для подключения к вашей удаленной машине. В этом файле вы можете указать адрес хоста, пользователя и другие необходимые параметры. Используйте *ubuntu-service/playbooks/deploy/vars.yaml.example* с переименованием, удалите зашифрованный vars.yml.
 
-В файле `ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml` нужно поменять строку **path** на ваш путь (результат pwd)
+В файле `ubuntu-service/playbooks/deploy/deploy_ubuntu.yaml` нужно поменять строку **path** на ваш путь (результат pwd)
 ```bash
-path: < your_path_to_file >/testing-environment/ubuntu-cluster/playbooks/deploy
+path: < your_path_to_file >/testing-environment/ubuntu-service/playbooks/deploy
 ```
 
 <details>
   <summary>Шаблон файла с переменными окружения</summary>
 
-Добавить файл .env, подставить ваши значения после `=`
+Добавить файл .env(поменять .env.example), подставить ваши значения после `=`
 ```text
 USERNAME=
 PASSWORD=
@@ -108,53 +108,24 @@ PASSWORD=
 </details>
 
 
-## Использование pre-commit
-
-Для начала работы с `pre-commit`, убедитесь, что у вас установлен Python и pip.
-
-Затем выполните следующие команды в корне вашего проекта:
-1. Установите `pre-commit`
-2. Проверьте наличие файла `.pre-commit-config.yaml` в корне проекта
-3. Инициализируйте `pre-commit` командой `pre-commit install`
-
-Теперь каждый раз, когда вы попытаетесь сделать коммит, `pre-commit` автоматически запустит указанные хуки, проверяя ваш код на наличие ошибок и несоответствий стилю, в соответствии с правилами, прописанными в `.pre-commit-config.yaml`
-
-
-## Использование ansible-lint
-
-`ansible-lint` — это утилита, которая помогает поддерживать код Ansible чистым и последовательным, проверяя его на соответствие стандартам и лучшим практикам.
-
-Чтобы использовать `ansible-lint` в вашем проекте, выполните следующие шаги:
-1. Установите `ansible-lint`
-2. Запустите `ansible-lint` для проверки ваших playbook и ролей `ansible-lint ubuntu-cluster/playbooks/`
-
-Если вы хотите изменить правила линтинга, отрегулируйте файл `.ansible-lint` в корне вашего проекта. Этот файл позволяет настроить критерии, которые `ansible-lint` будет использовать для проверки вашего кода.
-
-Файл `.ansible-lint-ignore` используется для указания исключений из правил линтинга. Вы можете добавить пути к файлам или шаблонам, которые должны быть проигнорированы `ansible-lint`.
-
-Использование `ansible-lint` поможет вам поддерживать высокое качество кода в вашем проекте Ansible, обеспечивая соблюдение стандартов и лучших практик.
-
-
-
-
 ## Основные команды
 
 ### Разворачивание тестовой среды
 
 ```sh
-ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
+ansible-playbook -i ubuntu-service/inventory.ini ubuntu-service/playbooks/deploy/deploy_ubuntu.yaml
 ```
 
 ### Остановка инстансов
 
 ```sh
-ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/stop/stop_ubuntu.yaml
+ansible-playbook -i ubuntu-service/inventory.ini ubuntu-service/playbooks/stop/stop_ubuntu.yaml
 ```
 
 ### Удаление инстансов
 
 ```sh
-ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/remove/remove_ubuntu.yaml
+ansible-playbook -i ubuntu-service/inventory.ini ubuntu-service/playbooks/remove/remove_ubuntu.yaml
 ```
 
 ### Обновление ключей
@@ -178,9 +149,8 @@ Host key for [127.0.0.1]:2222 has changed and you have requested strict checking
 Host key verification failed.
 ```
 
-То нужно запустить скрипт командой `./ubuntu-cluster/scripts/update_ssh_keys.sh`,
+То нужно запустить скрипт командой `./ubuntu-service/scripts/update_ssh_keys.sh`,
 а потом можно снова подключаться по ssh.
-
 
 
 ## Автоматическая проверка качества кода
@@ -191,6 +161,32 @@ Host key verification failed.
 - **yamllint**: Проверяет синтаксис и стиль YAML-файлов.
 - **pre-commit**: Автоматически запускает lint'еры перед каждым коммитом.
 
+
+## Использование pre-commit
+
+Для начала работы с `pre-commit`, убедитесь, что у вас установлен Python и pip.
+
+Затем выполните следующие команды в корне вашего проекта:
+1. Установите `pre-commit`
+2. Проверьте наличие файла `.pre-commit-config.yaml` в корне проекта
+3. Инициализируйте `pre-commit` командой `pre-commit install`
+
+Теперь каждый раз, когда вы попытаетесь сделать коммит, `pre-commit` автоматически запустит указанные хуки, проверяя ваш код на наличие ошибок и несоответствий стилю, в соответствии с правилами, прописанными в `.pre-commit-config.yaml`
+
+
+## Использование ansible-lint
+
+`ansible-lint` — это утилита, которая помогает поддерживать код Ansible чистым и последовательным, проверяя его на соответствие стандартам и лучшим практикам.
+
+Чтобы использовать `ansible-lint` в вашем проекте, выполните следующие шаги:
+1. Установите `ansible-lint`
+2. Запустите `ansible-lint` для проверки ваших playbook и ролей `ansible-lint ubuntu-service/playbooks/`
+
+Если вы хотите изменить правила линтинга, отрегулируйте файл `.ansible-lint` в корне вашего проекта. Этот файл позволяет настроить критерии, которые `ansible-lint` будет использовать для проверки вашего кода.
+
+Файл `.ansible-lint-ignore` используется для указания исключений из правил линтинга. Вы можете добавить пути к файлам или шаблонам, которые должны быть проигнорированы `ansible-lint`.
+
+Использование `ansible-lint` поможет вам поддерживать высокое качество кода в вашем проекте Ansible, обеспечивая соблюдение стандартов и лучших практик.
 
 
 ## Участие

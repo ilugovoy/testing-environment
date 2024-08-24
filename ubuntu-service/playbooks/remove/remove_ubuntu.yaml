@@ -1,5 +1,5 @@
 # yamllint disable-line rule:line-length
-# ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/remove/remove_ubuntu.yaml
+# ansible-playbook -i ubuntu-service/inventory.ini ubuntu-service/playbooks/remove/remove_ubuntu.yaml
 ---
 - name: Удаление Ubuntu инстансов
   hosts: local

@@ -1,5 +1,5 @@
 # yamllint disable-line rule:line-length
-# ansible-playbook -i ubuntu-cluster/inventory.ini ubuntu-cluster/playbooks/deploy/deploy_ubuntu.yaml
+# ansible-playbook -i ubuntu-service/inventory.ini ubuntu-service/playbooks/deploy/deploy_ubuntu.yaml
 ---
 - name: Развертывание нескольких Ubuntu инстансов
   hosts: localhost
@@ -13,7 +13,7 @@
         source: build
         build:
           # yamllint disable-line rule:line-length
-          path: /home/aeon/purpleschool/testing-environment/ubuntu-cluster/playbooks/deploy
+          path: /home/aeon/purpleschool/testing-environment/ubuntu-service/playbooks/deploy
           args:
             USERNAME: "{{ username }}"
             PASSWORD: "{{ password }}"
